@@ -1,0 +1,14 @@
+
+----------------
+dtv manager v1.1
+- Add C implements of call.py: dtv_client
+- Dtv manager could run as a daemon
+
+----------------
+dtv manager v1.0
+
+- Manager registers two method in interface 'xuc.manager.interface', get_properties and set_property
+- Get_properties is an example implements return value
+- Set_property is an example implements input arg
+
+

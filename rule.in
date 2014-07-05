@@ -1,0 +1,38 @@
+HISI_SRC :=$(shell  cd  ~/Hi3716MV100R001C00SPC060/source; pwd)
+include  $(HISI_SRC)/../cfg.mak
+
+ifndef MSP_DIR
+MSP_DIR := $(HISI_SRC)/msp
+endif
+ifndef PUB_DIR
+export PUB_DIR := $(HISI_SRC)/../pub
+endif
+
+
+export CROSS:=arm-hisiv200-linux
+AR      = $(CROSS)-ar
+AS      = $(CROSS)-as
+LD      = $(CROSS)-ld
+CPP     = $(CROSS)-cpp
+CC      = $(CROSS)-gcc
+NM      = $(CROSS)-nm
+STRIP   = $(CROSS)-strip
+OBJCOPY = $(CROSS)-objcopy
+OBJDUMP = $(CROSS)-objdump
+SERVER_UNTILS_DIR = $(TOOLS_DIR)/linux/utils
+CFG_CFLAGS = -DCHIP_TYPE_$(CFG_CHIP_TYPE) -DBOARD_TYPE_$(CFG_BOARD_TYPE) -DSDK_VERSION=$(CFG_SDK_VERSION)
+
+HI_CFLAGS += -fPIC -Wall -O2 -g $(CFG_CFLAGS) -ffunction-sections -fdata-sections -Wl,--gc-sections -lpthread
+
+USER_CFLAGS = -march=armv7-a -mcpu=cortex-a9 -mfloat-abi=softfp -mfpu=vfpv3-d16
+
+
+
+#INCDIR = -I./ -I$(MSP_DIR)/graphics/directfb/directfb/include/directfb	-I../include/       
+INCDIR := -I$(PUB_DIR)/include
+
+CC += -D_GNU_SOURCE $(HI_CFLAGS) $(USER_CFLAGS)
+	
+CXX = $(CROSS)-g++ $(HI_CFLAGS) $(USER_CFLAGS)
+GXX = $(CROSS)-g++ $(HI_CFLAGS) $(USER_CFLAGS)
+
